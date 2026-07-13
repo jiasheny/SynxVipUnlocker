@@ -8,7 +8,6 @@ import de.robv.android.xposed.XposedBridge
 import de.robv.android.xposed.callbacks.XC_LoadPackage
 import java.io.*
 import java.util.*
-import java.util.zip.ZipFile
 
 class SynxVipHook : IXposedHookLoadPackage {
 
@@ -20,23 +19,27 @@ class SynxVipHook : IXposedHookLoadPackage {
         private const val CLS_ENT_INFO = "com.revenuecat.purchases.EntitlementInfo"
         private const val CLS_ENT_INFOS = "com.revenuecat.purchases.EntitlementInfos"
 
-        @Volatile private var moduleApkPath: String? = null
+        // 非空哨兵对象 — 用于跳过 void 方法的原始执行
+        // Xposed 检查 param.result != null 来决定是否跳过原始方法
+        // 对 void 方法，初始 result 为 null，所以必须设非空值才能跳过
+        private val SENTINEL = Object()
+
         @Volatile private var cachedFakeEnt: Any? = null
         @Volatile private var cachedCL: ClassLoader? = null
+        @Volatile private var appContext: android.content.Context? = null
     }
 
     override fun handleLoadPackage(lpparam: XC_LoadPackage.LoadPackageParam) {
         if (lpparam.packageName != TARGET) return
         val cl = lpparam.classLoader
-        moduleApkPath = getModuleApkPath(cl)
 
         XposedBridge.log("[$TAG] ============================================")
         XposedBridge.log("[$TAG] Synx loaded (pid=${android.os.Process.myPid()})")
-        XposedBridge.log("[$TAG] Module APK: $moduleApkPath")
+
+        // 捕获 Application Context（用于翻译资源读取）
+        hookAppContext(cl)
 
         // 核心策略：直接拦截 PurchasesFlutterPlugin.onMethodCall
-        // 当 Dart 调用 getCustomerInfo 时，直接返回伪造的 pro 数据
-        // 这样即使 RevenueCat 没初始化也能生效
         hookPluginOnMethodCall(cl)
 
         // 备用：RevenueCat 对象层 Hook
@@ -76,22 +79,20 @@ class SynxVipHook : IXposedHookLoadPackage {
 
                             when (method) {
                                 "getCustomerInfo", "getPurchaserInfo" -> {
-                                    // 直接返回伪造的 CustomerInfo Map
                                     val fakeData = buildFakeCustomerInfoMap()
                                     XposedHelpers.callMethod(result, "success", fakeData)
-                                    p.result = null  // 阻止原始方法执行
+                                    p.result = SENTINEL  // 非空哨兵值，阻止原始 void 方法执行
                                     XposedBridge.log("[$TAG] ✓ Faked getCustomerInfo → pro active")
                                 }
                                 "getOfferings" -> {
                                     val fakeOfferings = buildFakeOfferingsMap()
                                     XposedHelpers.callMethod(result, "success", fakeOfferings)
-                                    p.result = null
+                                    p.result = SENTINEL
                                     XposedBridge.log("[$TAG] ✓ Faked getOfferings")
                                 }
                                 "checkTrialOrIntroductoryPriceEligibility" -> {
-                                    // 返回空 Map 表示没有试用过（符合条件）
                                     XposedHelpers.callMethod(result, "success", emptyMap<String, Any>())
-                                    p.result = null
+                                    p.result = SENTINEL
                                     XposedBridge.log("[$TAG] ✓ Faked trial eligibility")
                                 }
                                 "getDeviceAppInfo", "getAppUserID", "isAnonymous" -> {
@@ -272,13 +273,31 @@ class SynxVipHook : IXposedHookLoadPackage {
     }
 
     // ===============================================================
+    //  捕获 Application Context
+    // ===============================================================
+    private fun hookAppContext(cl: ClassLoader) {
+        try {
+            XposedHelpers.findAndHookMethod(
+                "android.app.Application", cl,
+                "onCreate",
+                object : XC_MethodHook() {
+                    override fun afterHookedMethod(p: MethodHookParam) {
+                        appContext = p.thisObject as? android.content.Context
+                        XposedBridge.log("[$TAG] App context captured")
+                    }
+                })
+            XposedBridge.log("[$TAG] [✓] Application.onCreate()")
+        } catch (t: Throwable) {
+            XposedBridge.log("[$TAG] [✗] Application.onCreate: $t")
+        }
+    }
+
+    // ===============================================================
     //  翻译: 繁体 → 简体
-    //  Flutter 使用 AssetManager.open(String, int) 而非 open(String)
+    //  通过模块 Context 读取 res/raw 资源
     // ===============================================================
     private fun hookTranslation(cl: ClassLoader) {
-        // Hook open(String) — 单参数版本
         hookAssetOpen(cl, "open", false)
-        // Hook open(String, int) — 双参数版本（Flutter 实际使用的）
         hookAssetOpen(cl, "open", true)
     }
 
@@ -290,15 +309,23 @@ class SynxVipHook : IXposedHookLoadPackage {
                     if (!path.contains("zh-Hant") || !path.contains("common.toml")) return
 
                     XposedBridge.log("[$TAG] Intercepted zh-Hant TOML ($methodName): $path")
-                    val apk = moduleApkPath ?: return
+                    val ctx = appContext ?: run {
+                        XposedBridge.log("[$TAG] No app context yet")
+                        return
+                    }
                     try {
-                        (p.result as? InputStream)?.close()
-                        val zf = ZipFile(apk)
-                        val entry = zf.getEntry("res/raw/zh_cn_common.toml")
-                        if (entry != null) {
-                            val bytes = zf.getInputStream(entry).readBytes()
+                        // 通过模块包名创建 Context，读取模块的 res/raw 资源
+                        val moduleCtx = ctx.createPackageContext("com.synx.unlocker",
+                            android.content.Context.CONTEXT_IGNORE_SECURITY)
+                        val res = moduleCtx.resources
+                        val resId = res.getIdentifier("zh_cn_common", "raw", "com.synx.unlocker")
+                        if (resId != 0) {
+                            (p.result as? InputStream)?.close()
+                            val bytes = res.openRawResource(resId).readBytes()
                             p.result = ByteArrayInputStream(bytes)
                             XposedBridge.log("[$TAG] [✓] Replaced zh-Hant → zh-CN (${bytes.size} bytes)")
+                        } else {
+                            XposedBridge.log("[$TAG] [✗] raw/zh_cn_common not found in module")
                         }
                     } catch (e: Exception) {
                         XposedBridge.log("[$TAG] Translation failed: ${e.message}")
@@ -398,20 +425,4 @@ class SynxVipHook : IXposedHookLoadPackage {
 
     private fun enumVal(cls: Class<*>, name: String): Any? =
         cls.enumConstants?.firstOrNull { (it as Enum<*>).name == name }
-
-    private fun getModuleApkPath(cl: ClassLoader): String? {
-        return try {
-            var cls: Class<*>? = cl.javaClass
-            while (cls != null) {
-                try {
-                    val f = cls.getDeclaredField("path")
-                    f.isAccessible = true
-                    val p = f.get(cl) as? String
-                    if (p != null && p.endsWith(".apk")) return p
-                } catch (_: NoSuchFieldException) {}
-                cls = cls.superclass
-            }
-            null
-        } catch (_: Exception) { null }
-    }
 }
