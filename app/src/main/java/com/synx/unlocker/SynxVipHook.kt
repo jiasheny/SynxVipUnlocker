@@ -197,7 +197,7 @@ class SynxVipHook : IXposedHookLoadPackage {
     private fun modifyChannelResult(result: Map<*, *>): Map<*, *>? {
         if (!result.containsKey("entitlements") && !result.containsKey("activeSubscriptions")) return null
         var modified = false
-        val m = LinkedHashMap<String, Any?>(result)
+        val m = HashMap<Any?, Any?>(result)
 
         // 注入 activeSubscriptions
         val subs = m["activeSubscriptions"]
@@ -209,7 +209,7 @@ class SynxVipHook : IXposedHookLoadPackage {
         // 注入 entitlements
         val ents = m["entitlements"]
         if (ents is Map<*, *>) {
-            val ne = LinkedHashMap<String, Any?>(ents)
+            val ne = HashMap<Any?, Any?>(ents)
             val active = ne["active"]
             if (active == null || (active is Map<*, *> && active.isEmpty())) {
                 val fa = LinkedHashMap<String, Any>()
