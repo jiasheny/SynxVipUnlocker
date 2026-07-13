@@ -1,0 +1,945 @@
+# 格式：TOML
+
+
+[_meta]
+language = "繁体中文"
+region = "Taiwan"
+completeness = 100
+
+# ============================================================================
+# Actions - 常用操作
+# ============================================================================
+[common]
+asset = "资产"
+liability = "负债"
+investment = "投资"
+assets = "资产"
+liabilities = "负债"
+investments = "投资"
+archived = "封存"
+excluded = "排除"
+
+[actions]
+save = "储存"
+cancel = "取消"
+delete = "删除"
+edit = "编辑"
+create = "建立"
+close = "关闭"
+confirm = "确认"
+next = "下一步"
+done = "完成"
+retry = "重试"
+archive = "封存"
+unarchive = "解除封存"
+ok = "确定"
+clear = "清除"
+continue = "继续"
+add = "新增"
+start_trial = "开始 7 天免费试用"
+update = "更新"
+upgrade = "升级"
+reset = "重设"
+default = "预设"
+refresh = "更新"
+try_later = "请稍后再试"
+
+[common.boolean]
+yes = "是"
+no = "否"
+
+[common.misc]
+na = "无"
+all = "全部"
+
+[subscription]
+title = "Synx Pro"
+monthly = "月订阅"
+yearly = "年订阅"
+per_month = "/ 月"
+per_year = "/ 年"
+unlock_all_features = "解锁所有功能"
+see_plans = "查看方案"
+cancel_anytime = "随时取消・自动续订"
+terms_and_privacy = "继续即表示您同意我们的 {terms_link} 与 {privacy_link}。"
+terms_of_use = "使用条款"
+privacy_policy = "隐私政策"
+
+[subscription.terms]
+trial_title = "免费试用"
+trial_content = "新用户可享年订阅 7 天免费试用。试用期间不会扣款,可随时取消。试用结束后将自动开始订阅并收取完整年费。"
+billing_title = "订阅扣款"
+billing_content = "当你确认购买后，将从你的 {store_name} 帐户中扣款。"
+cancel_title = "取消订阅"
+cancel_content = "你可以随时在 {cancel_path} 管理并取消自动续订的订阅。取消后，在当前的计费周期结束前你仍可使用订阅服务，之后将不再自动续订。"
+cancel_path_ios = "设定 → 你的 Apple ID 帐号 → 订阅里"
+cancel_path_android = "Google Play 商店 → 帐户 → 付款与订阅"
+auto_renew_title = "自动续订"
+auto_renew_content = "本订阅为 自动续订 服务。选择订阅方案后，系统会在每个计费周期开始时自动从您的 {store_name} 帐户扣款。除非您在目前计费周期结束前手动取消，否则订阅会自动续期。"
+restore_purchase = "恢复购买"
+redeem_code = "兑换"
+redeem_code_title = "兑换优惠代码"
+redeem_code_placeholder = "输入优惠代码"
+redeem_code_success = "优惠代码兑换成功！"
+redeem_code_failed = "优惠代码兑换失败，请检查后重试。"
+redeem_code_empty = "请输入优惠代码"
+
+[subscription.features]
+remove_ad = "移除广告"
+investment_accounts = "投资帐户"
+daily_api_quota = "每日请求数量"
+daily_api_quota_tooltip = "每次进行价格同步都会消耗 1 次请求。请求项目包含：汇率更新、历史股票价格查询、目前股票价格更新。请注意，无论你是查看最新价格或回溯查询过去资料，这些操作都会从每日请求额度中扣除。建议在需频繁同步资料时选择较高额度方案，以避免达上限。"
+daily_price_sync = "批量价格同步"
+daily_price_sync_tooltip = "下拉即可一次更新所有投资标的价格。免费版需逐一手动更新，每个标的间隔 24 小时。"
+batch_complete = "批次新增交易"
+batch_complete_quota = "每月一次"
+batch_complete_info_title = "批次新增"
+batch_complete_info_unused = "您尚未使用过批次新增功能，现在可以使用。"
+batch_complete_info_available = "您的批次新增功能可以使用。"
+batch_complete_info_next_reset = "下次可用时间：{date}"
+batch_complete_unlimited_info = "您是专业版会员，可无限次使用批次完成。"
+export_data = "汇出资料"
+face_id_protection = "生物辨识解锁"
+customized_view = "自订投资组合"
+
+[subscription.plan_comparison]
+free_plan = "免费版"
+pro_plan = "专业版"
+unlimited = "∞"
+
+[subscription.messages]
+daily_price_sync_quota_reached = "今日价格同步以到达限额"
+plan_not_available = "无可用的订阅方案"
+purchase_failed = "购买失败，请再试一次。"
+purchase_success = "欢迎加入 Synx Pro！"
+restore_success = "已成功恢复购买！"
+restore_nothing = "没有可恢复的购买项目。"
+restore_failed = "恢复购买失败，请再试一次。"
+
+[common.fields]
+account = "帐户"
+amount = "金额"
+category = "类别"
+group = "群组"
+currency = "货币"
+date = "日期"
+note = "备注"
+notes = "备注"
+optional = "选填"
+symbol = "股票代号"
+shares = "股数"
+ounces = "盎司"
+units = "枚"
+quantity = "数量"
+unit_cost = "单位成本"
+start_date = "开始日期"
+end_date = "结束日期"
+pattern = "周期"
+details = "详细资料"
+market = "市场"
+unit_price = "单价"
+type = "类型"
+fee = "费用"
+total = "总计"
+name = "名称"
+market_value = "市值"
+
+[common.market_regions]
+us = "美国"
+tw = "台湾"
+jp = "日本"
+hk = "香港"
+eu = "欧洲"
+crypto = "加密货币"
+uk = "英国"
+cn = "中国"
+fx = "贵金属"
+fund = "基金"
+manual = "手动输入"
+eod_marker = "(仅收盘价)"
+
+[common.operations]
+buy = "买入"
+sell = "卖出"
+income = "收入"
+expense = "支出"
+transfer = "转移"
+borrow = "借入"
+repay = "还款"
+
+[common.patterns]
+once = "单次"
+monthly = "每月"
+quarterly = "每季"
+yearly = "每年"
+interval = "固定间隔"
+nth_weekday = "特定周次"
+
+[common.ui]
+skip_weekends = "略过周末"
+to_account = "目标帐户"
+repeat_transaction = "重复交易"
+regular_investment = "定期投资提醒"
+
+[common.messages]
+please_add_account = "请先新增帐户。"
+
+# ============================================================================
+# Status - Loading, Error, Success States
+# ============================================================================
+[status]
+loading = "载入中..."
+error = "错误"
+success = "成功"
+empty = "没有可用资料"
+coming_soon = "即将推出"
+failed = "失败"
+
+[status.api]
+unable_to_connect = "网路无法连线"
+unavailable_message = "请稍后再试。"
+
+# ============================================================================
+# Validation Messages
+# ============================================================================
+[validation]
+required = "此栏位为必填"
+invalid_number = "数字无效"
+shares_required = "必须填写股数"
+shares_must_be_positive = "股数必须是有效的正数"
+ounces_required = "必须填写盎司"
+ounces_must_be_positive = "盎司必须是有效的正数"
+units_required = "必须填写数量"
+units_must_be_positive = "数量必须是有效的正数"
+unit_price_required = "必须填写单价"
+unit_price_must_be_positive = "单价必须是有效的非负数"
+amount_must_not_exceed_trillion = "金额不可超过一兆"
+
+# ============================================================================
+# Tabs Navigation
+# ============================================================================
+[tabs]
+transactions = "交易"
+
+# ============================================================================
+# Transactions
+# ============================================================================
+[transactions.types]
+opening = "起始余额"
+income = "收入"
+expense = "支出"
+transfer = "转移"
+adjustment = "调整"
+increase = "增加"
+decrease = "减少"
+adjust = "调整"
+transaction = "交易"
+stock_transaction = "股票交易"
+recurring_transaction = "重复交易"
+
+[transactions.transfer_fields]
+from_account = "来源帐户"
+from_amount = "转出金额"
+to_amount = "转入金额"
+
+[transactions.messages]
+delete_confirm = "确定要删除此交易吗？"
+save_failed = "储存交易失败，请稍后再试"
+
+[transactions.detail]
+closed_account_warning = "已封存的帐户无法变更交易。"
+load_failed = "无法载入交易：{error}"
+delete_failed = "删除交易失败：{error}"
+save_failed = "储存变更失败：{error}"
+recurrence_base_warning_title = "编辑重复交易？"
+recurrence_base_warning_message = "这是重复交易的设定，变更将会影响到未来的交易，确定要继续吗？"
+recorded = "建立时间"
+funding_account = "资金帐户"
+select_date = "选择日期"
+tax = "税/费用"
+
+[transactions.empty_state]
+no_history = "没有历史交易"
+no_pending = "没有待处理交易"
+no_upcoming = "没有即将发生的交易"
+
+[notifications]
+pending_event_title = "待处理交易提醒"
+pending_event_body = "您有待完成的交易。"
+inactivity_title = "更新您的财务状况"
+inactivity_body = "好久不见！该更新您的财务记录了。"
+
+[transactions.filter_modes]
+history = "历史"
+pending = "待处理"
+upcoming = "即将到来"
+
+[transactions.filters]
+title = "筛选交易"
+selected_count = "已选 {count} 项"
+invalid_range_title = "日期范围无效"
+invalid_range_message = "结束日期必须晚于开始日期。"
+
+[recurrence.detail]
+modal_semantics = "即将到来事件详细资讯弹窗"
+delete_prompt_title = "确定要删除此事件吗？"
+delete_current = "只删除本次事件"
+delete_future = "删除所有未来事件"
+load_failed = "无法载入重复交易详情：{error}"
+delete_failed = "无法删除事件：{error}"
+error_generic = "发生错误"
+title_default = "即将到来的事件"
+pattern_unknown = "未知"
+pattern_interval_daily = "每日"
+pattern_interval_weekly = "每周"
+pattern_interval_generic = "每 {count} 天"
+pattern_nth_weekday = "每月（特定周几）"
+pattern_custom = "自订"
+pattern_detail_yearly = "每年 {date}"
+pattern_detail_monthly = "每月 {days}"
+pattern_detail_quarterly = "{months} {day}"
+pattern_detail_nth_weekday = "每月的第 {nth} 个 {weekday}"
+
+[recurrence.form]
+month = "月份"
+day = "日期"
+days_of_month = "每月日期"
+days_of_month_hint = "选择一个或多个日期"
+occurrence = "周次"
+weekday = "星期"
+repeat_every = "重复间隔"
+interval_unit.one = "天"
+interval_unit.other = "天"
+at_least_one_day = "请至少选择一天"
+
+[recurrence.form.nth]
+first = "第一"
+second = "第二"
+third = "第三"
+fourth = "第四"
+last = "最后"
+
+# ============================================================================
+# Accounts
+# ============================================================================
+[accounts]
+current_balance = "目前余额"
+
+[accounts.detail]
+balance_label = "余额"
+invalid_balance_title = "余额无效"
+invalid_balance_message = "请输入有效的余额数字。"
+invalid_unit_cost_title = "单位成本无效"
+invalid_unit_cost_message = "请输入有效的单位成本数字。"
+invalid_unit_cost_positive = "单位成本必须大于 0。"
+unit_cost_tooltip = "单位成本为选填。若留空，损益与成本计算将不准确。"
+balance_adjustment = "余额调整"
+balance_adjustment_note = "由 {current} 调整为 {new}"
+balance_adjustment_confirm_title = "确认余额调整"
+balance_adjustment_confirm_message = "将建立 {sign}{amount} 的调整交易。\n\n目前：{current}\n新值：{new}"
+delete_title = "删除 {name}？"
+delete_message = "选择删除此帐户的方式："
+archive_title = "封存帐户"
+archive_message = "帐户将被封存，但所有交易都会保留。"
+archive_failed_title = "封存失败"
+archive_failed_message = "无法封存帐户：{error}"
+unarchive_title = "解除封存帐户"
+unarchive_message = "帐户将恢复为活跃状态。"
+unarchive_failed_title = "解除封存失败"
+unarchive_failed_message = "无法解除封存帐户：{error}"
+permanent_delete_title = "永久删除"
+permanent_delete_message = "这将永久删除帐户及所有交易。此操作无法复原。"
+delete_failed_title = "删除失败"
+delete_failed_message = "无法删除帐户：{error}"
+cannot_archive_title = "无法封存帐户"
+cannot_archive_shares = "帐户仍有持股，无法封存。请先卖出所有持股后再删除。"
+cannot_archive_ounces = "帐户仍有贵金属，无法封存。请先卖出所有贵金属后再删除。"
+cannot_archive_units = "帐户仍有数量，无法封存。请先卖出所有数量后再删除。"
+cannot_archive_balance = "帐户仍有余额，无法封存。"
+update_failed_title = "更新失败"
+update_failed_message = "无法更新帐户：{error}"
+current_price = "价格"
+last_update = "最后更新"
+gain_loss = "损益"
+gain_loss_percent = "损益 (%)"
+more_info = "更多资讯"
+sync_price_success = "价格更新成功"
+sync_price_failed = "价格更新失败"
+sync_cooldown = "还要 {hours} 小时 {minutes} 分钟后才能进行价格同步"
+sync_cooldown_pro = "请稍后 {minutes} 分钟再试"
+sync_limit_exceeded = "超过免费版投资帐户限制（{limit} 个）。请删除部分帐户后再同步。"
+eod_only_tooltip = "此市场仅支援盘后价格更新。价格会在收盘后更新。"
+fund_no_history_warning_title = "提醒"
+fund_no_history_warning_message = "基金无法回溯查询历史净值，一个月以上的净值可能无法取得。"
+skip_stats = "排除统计"
+sync_price = "更新价格"
+full_resync_confirm_title = "重置并重新同步"
+full_resync_confirm_message = "这将删除所有历史股价记录并重新取得完整历史资料。确定要继续吗？"
+add_transaction = "新增交易"
+export_csv = "汇出 CSV"
+export_csv_success = "CSV 汇出成功"
+export_csv_failed = "CSV 汇出失败"
+
+# ============================================================================
+# Summary / Dashboard
+# ============================================================================
+[summary]
+insights = "总览"
+net_worth = "净资产"
+no_accounts = "找不到帐户"
+add_first_account = "新增第一个帐户即可开始"
+today = "今日"
+
+[summary.refresh]
+update_prices_title = "更新价格"
+update_prices_message = "有 {count} 个投资帐户可能有价格更新，要更新吗？"
+bulk_sync_title = "批量价格同步"
+bulk_sync_message_free = "升级至 Synx Pro 可一次更新 {count} 个投资帐户。\n免费方案：请点击各别投资帐户手动更新价格。"
+
+[summary.time_ranges]
+all_time = "全部时间"
+past_one_month = "过去 1 个月"
+past_year_to_date = "年度至今"
+past_seven_days = "过去 7 天"
+past_six_months = "过去 6 个月"
+past_one_year = "过去 1 年"
+custom_range = "自订范围"
+one_week = "周"
+one_month = "月"
+six_month = "半年"
+one_year = "年"
+year_to_date = "今年"
+custom = "..."
+all = "全部"
+
+[summary.display_options]
+title = "显示选项"
+chart_interval = "图表间隔"
+daily = "每日"
+weekly = "每周"
+monthly = "每月"
+chart_axis = "显示座标轴"
+show_x_axis = "显示 X 轴"
+show_y_axis = "显示 Y 轴"
+account_currency = "帐户货币显示"
+original_currency = "原币别"
+display_mode = "帐户数值显示"
+account_icon_mode = "帐户图示"
+account_grouping = "帐户分组方式"
+group_by_type = "类别"
+group_by_category = "群组"
+archived_accounts = "已封存帐户"
+show_archived = "显示已封存帐户"
+investment_day_change = "投资帐户标签"
+mode_position = "持仓"
+mode_total = "涨跌"
+mode_percent = "涨跌%"
+goal = "净资产目标"
+show_progress_bar = "显示进度条"
+target_amount = "目标金额"
+
+# ============================================================================
+# Portfolio Tab
+# ============================================================================
+[portfolio]
+title = "投资组合"
+no_available_portfolio = "没有可用的投资组合"
+portfolio_view_unavailable = "无法显示投资组合"
+failed_to_load = "无法载入投资组合资料：{error}"
+failed_to_create_view = "无法建立检视：{error}"
+view_exists = "此名称的检视已存在"
+
+[portfolio.dashboard]
+price_and_cost = "价格与成本"
+holding_value = "持仓价值"
+price = "价格"
+
+[portfolio.table_headers]
+name = "名称"
+market_value = "市值"
+current_price = "当前价格"
+day_change = "日涨幅"
+total_change = "报酬率"
+total_cost = "总成本"
+total_profit = "损益"
+realized_pnl = "已实现损益"
+total_fee_tax = "总费用/税"
+
+[portfolio.dialogs]
+delete_view_title = "删除投资组合？"
+delete_view_message = "确定要删除 \"{name}\" 吗？"
+cannot_edit_system_view_title = "无法编辑系统检视"
+cannot_edit_system_view_message = "系统检视（所有资产、投资、行情）无法编辑。"
+cannot_delete_system_view_title = "无法删除系统检视"
+cannot_delete_system_view_message = "系统检视（所有资产、投资、行情）无法删除。"
+
+[portfolio.selector]
+add_view_title = "新增投资组合"
+selected_accounts_title = "编辑投资组合"
+name_placeholder = "名称（必填）"
+
+[portfolio.display_options]
+title = "显示选项"
+grouping = "帐户分组方式"
+no_grouping = "不分组"
+group_by_type = "类型"
+group_by_category = "群组"
+table_columns = "表格栏位"
+pin_first_column = "固定首栏"
+
+[portfolio.actions]
+edit_portfolio = "编辑投资组合"
+edit_allocations = "编辑资产配置"
+edit_categories = "编辑群组"
+delete_portfolio = "删除投资组合"
+allocation_hint = "设定每个帐户在此组合中的比重。\n资产帐户填入金额，投资帐户填入股数。\n超过实际持仓时以实际持仓为准，且不随交易自动更新。"
+
+# ===========================================================================
+# Symbol Selector
+# ===========================================================================
+[icon_selector]
+title = "选择图示"
+
+[symbol_selector]
+title = "选择代号"
+search_placeholder = "搜寻代号或名称"
+loading = "正在载入代号..."
+empty = "找不到符合的代号"
+missing_ticker = "找不到代号？"
+fund_hint_title = "关于基金代号"
+fund_hint = "基金没有统一的标准化代号，搜寻方式与股票不同。"
+fund_hint_link = "查看说明文章"
+
+# ============================================================================
+# Add Transaction Page
+# ============================================================================
+[add_transaction]
+title = "新增交易"
+end_date_optional = "结束日期（选填）"
+tax_fees_optional = "税/费用（选填）"
+to_optional = "目标（选填）"
+from_optional = "来源（选填）"
+select_or_add_category = "选择或新增分类"
+quantity = "数量"
+auto_record_transaction = "自动纪录交易"
+skip_once = "略过一次"
+none = "无"
+select_account = "选择帐户"
+current_shares = "目前数量"
+current_ounces = "目前盎司"
+current_units = "目前数量"
+adjust_account_open_date_title = "调整帐户开始日期？"
+adjust_account_open_date_message = "所选日期早于帐户开始日期，是否将开始日期提前至 {date}？"
+batch_complete = "批次完成"
+investment_mode = "投资模式"
+fixed_amount = "固定金额"
+fixed_quantity = "固定数量"
+preview_events = "预览 ({count} 个交易)"
+select_investment_account = "选择投资帐户"
+select_funding_account = "选择资金帐户"
+no_pending_events = "没有待处理交易"
+confirm_batch_complete_title = "确认批次完成"
+confirm_batch_complete_message = "您即将完成 {count} 笔交易。\n\n请确认所有金额、数量和价格均正确。"
+batch_complete_success = "批次完成"
+batch_result = "成功：{success}\n失败：{failed}"
+processing_transactions = "处理交易中..."
+failed_to_load_preview = "无法载入预览：{error}"
+failed_to_complete_batch = "无法完成批次：{error}"
+missing_price = "缺少价格"
+failed_to_mark_completed = "无法标记为已完成：{error}"
+complete_events = "完成事件"
+pending_events_choice = "此重复交易有 {count} 个待处理交易。\n\n您要如何处理？"
+single_complete = "单笔完成"
+
+[add_transaction.pattern_details]
+once = "将于 {date} 发生一次"
+not_configured = "尚未设定"
+last_day = "每月最后一天"
+days = "日期：{days}"
+every_quarter = "每季：{month}{day}日"
+interval = "每 {count} 天"
+last = "月底"
+
+[add_transaction.validations]
+please_select_account = "请选择帐户"
+please_select_operation = "请选择操作"
+please_select_destination = "请选择目标帐户"
+transaction_date_before_opening = "交易日期（{transaction_date}）不可早于帐户开户日期（{opening_date}）"
+category_required = "请选择分类"
+amount_required = "必须填写金额"
+amount_must_be_nonzero = "金额必须是有效的非零数字"
+
+[add_transaction.dialogs]
+automatic_ledger_title = "自动帐簿项目"
+automatic_ledger_message = "储存后将自动新增 {count} 笔过去的重复事件至交易列表。是否继续？"
+skip_event_title = "略过此事件？"
+skip_event_message = "这将略过目前的重复事件，交易不会建立。"
+no_available_accounts_title = "没有可用帐户"
+no_available_accounts_message = "没有其他同币别帐户可用于转帐。"
+no_funding_accounts_title = "没有资金帐户"
+no_funding_accounts_message = "请新增另一个同币别非投资帐户以用于资金来源。"
+
+[add_transaction.tooltips]
+auto_record_tooltip = "在排定日期后自动新增。若金额不确定请关闭。"
+auto_record_investment_tooltip = "投资成本需根据实际成交价格计算，故不支援自动记录。"
+skip_weekends_tooltip = "重复交易若落在周末会移至下一个工作日。"
+
+# ============================================================================
+# Add Account Page
+# ============================================================================
+[add_account]
+title = "新增帐户"
+type = "类型"
+icon = "图示"
+account_name = "帐户名称"
+account_name_placeholder = "帐户名称"
+initial_amount = "起始金额"
+failed_to_create = "无法建立帐户：{error}"
+select_category = "选择群组"
+select_currency = "选择货币"
+enter_custom_category = "输入自订群组"
+manual_input = "手动输入"
+
+[add_account.validations]
+please_select_symbol = "请选择代号"
+account_name_required = "必须填写帐户名称"
+initial_amount_required = "必须填写起始金额"
+amount_must_be_valid = "金额必须是有效的数字"
+account_name_already_exists = "帐户名称「{name}」已存在于 {type} 类型中"
+
+[add_account.duplicate_account]
+title = "已存在此帐户"
+message = "若欲记录买入或卖出，建议使用「新增交易」。"
+
+[add_account.categories]
+cash = "现金"
+bank_account = "银行帐户"
+savings_account = "储蓄帐户"
+e_wallet = "电子钱包"
+time_deposit = "定存"
+foreign_currency = "外币"
+pension = "退休金"
+real_estate_property = "房地产"
+car_motorcycle = "汽车 / 机车"
+gold = "黄金"
+rsu = "员工限制型股票 (RSU)"
+land = "土地"
+collectibles = "收藏品"
+equipments = "设备"
+accounts_receivable = "应收帐款"
+other = "其他"
+credit_card = "信用卡"
+accounts_payable = "应付帐款"
+tax_payable = "应付税款"
+auto_loan = "车贷"
+student_loan = "学贷"
+mortgage_loan = "房贷"
+credit_loan = "信贷"
+unpaid_bills = "未付帐单"
+
+# ============================================================================
+# Settings Page
+# ============================================================================
+[settings]
+title = "设定"
+display_settings = "显示设定"
+appearance = "外观"
+theme_mode = "外观"
+language = "语言"
+price_color_scheme = "涨跌颜色"
+version = "版本"
+privacy_policy = "隐私权政策"
+legal = "条款"
+user_guide = "使用指南"
+feedback = "意见回馈"
+rate_app = "为 Synx 评分"
+follow_us = "追踪我们"
+demo_mode = "Demo 模式"
+exit_demo = "退出 Demo"
+try_demo = "Demo 模式"
+onboarding = "功能介绍"
+rebuild_snapshots = "重建资产快照"
+
+[settings.section]
+general = "一般"
+data = "资料"
+about = "关于"
+cloud = "云端"
+
+[settings.theme_options]
+system = "系统"
+light = "浅色"
+dark = "深色"
+
+[settings.price_color_options]
+green_up = "绿涨红跌"
+red_up = "红涨绿跌"
+
+[settings.currencies]
+twd = "新台币 (NT$)"
+usd = "美元 ($)"
+hkd = "港币 (HK$)"
+sgd = "新加坡币 (S$)"
+jpy = "日圆 (¥)"
+krw = "韩元 (₩)"
+eur = "欧元 (€)"
+gbp = "英镑(£)"
+cny = "人民币(¥)"
+myr = "马来西亚令吉 (RM)"
+aud = "澳币 (A$)"
+cad = "加拿大元 (C$)"
+zar = "南非兰特 (R)"
+nok = "挪威克朗 (kr)"
+
+[settings.membership]
+title = "会员资格"
+pro_plan = "Synx Pro"
+free_plan = "免费方案"
+
+[settings.membership.dialog]
+active_title = "Synx 专业版会员"
+active_message = "您的 Synx 专业版订阅有效，将于 {date} 续订。"
+active_message_no_date = "您的 Synx 专业版订阅有效。我们无法取得续订日期。"
+free_title = "免费方案"
+free_message = "您目前使用免费方案。升级 Synx 专业版以解锁所有功能。"
+restore_purchase = "恢复购买"
+
+[settings.exchange_rate]
+title = "汇率"
+auto_update = "自动更新"
+
+[settings.data_options]
+export_data = "汇出资料"
+reset_data = "重设所有资料"
+
+[settings.messages]
+language_changed = "语言切换成功"
+feedback_unavailable = "无法开启邮件应用程式。"
+rating_unavailable = "无法开启 App Store。请稍后再评分。"
+export_no_data = "没有每日快照可供汇出。"
+export_success_path = "每日快照已汇出至 {path}"
+export_failed = "每日快照汇出失败。"
+export_cancelled = "汇出已取消。"
+export_select_directory = "选择汇出资料夹"
+restore_success = "已成功恢复购买。"
+restore_failed = "无法恢复购买，请稍后再试。"
+
+[review_prompt]
+title = "喜欢使用 Synx 吗？"
+message = "如果您喜欢 Synx,能否花一点时间为我们评分？只需不到一分钟。感谢您的支持！"
+rate_now = "立即评分"
+maybe_later = "稍后再说"
+no_thanks = "不用了,谢谢"
+banner_cta = "喜欢 Synx 吗？\n留下评分，支持我们持续改进。"
+
+[settings.reset]
+confirm_title = "删除所有资料"
+confirm_message = "确定要删除所有资料吗？"
+data_summary = "将删除的资料："
+accounts = "个帐户"
+transactions = "笔交易"
+warning = "此操作无法复原！"
+confirm = "删除所有资料"
+success_title = "删除完成"
+success_message = "所有资料已成功删除。"
+error_title = "删除失败"
+error_message = "删除资料失败。请再试一次。"
+
+[settings.import_export]
+title = "资料备份与转移"
+icloud_section = "iCloud"
+local_section = "本地"
+auto_backup = "自动备份至 iCloud"
+backup = "备份资料"
+backup_description = "将资料库汇出为档案"
+restore = "还原资料"
+restore_description = "从备份档案汇入资料库"
+export_csv = "汇出 CSV"
+export_csv_description = "将所有帐户资讯汇出为 CSV"
+export_net_worth_trend = "净资产走势"
+export_transactions = "交易纪录"
+export_account_balances = "帐户余额"
+icloud_backup = "备份至 iCloud"
+icloud_backup_description = "上传备份至 iCloud"
+icloud_restore = "从 iCloud 还原"
+icloud_restore_description = "下载并还原 iCloud 备份"
+backup_success = "资料库备份成功"
+backup_failed = "资料库备份失败"
+backup_cancelled = "备份已取消"
+restore_success = "资料库还原成功"
+restore_failed = "资料库还原失败"
+restore_cancelled = "还原已取消"
+restore_confirm_title = "还原资料库"
+restore_confirm_message = "这将会用汇入的资料库取代所有现有资料。\n\n此操作无法复原。"
+restore_confirm = "还原"
+restoring = "还原资料库中..."
+select_directory = "选择汇出资料夹"
+select_file = "选择资料库档案"
+backup_success_path = "资料库已备份至 {path}"
+icloud_backup_progress = "备份至 iCloud 中..."
+icloud_backup_success = "已成功上传备份至 iCloud"
+icloud_backup_failed = "备份至 iCloud 失败"
+icloud_restore_progress = "从 iCloud 还原中..."
+icloud_restore_success = "已成功从 iCloud 还原。请重新启动 App。"
+icloud_restore_failed = "从 iCloud 还原失败"
+icloud_no_backups = "iCloud 中没有找到备份"
+icloud_select_backup_title = "选择要还原的备份"
+icloud_select_backup_message = "这将取代所有目前资料"
+select_account = "选择帐户"
+no_accounts = "没有可用的帐户"
+export_csv_success = "CSV 汇出成功"
+export_failed = "汇出失败"
+export_type_title = "选择汇出类型"
+import_section = "汇入"
+import_csv = "汇入交易 CSV"
+import_transactions = "汇入交易"
+import_non_investment = "一般交易"
+import_investment = "投资交易"
+import_ai_title = "用 AI 协助转换格式"
+import_ai_description = "将您的银行对帐单（图片、PDF 或文字）上传至任何 AI 助手，并附上以下提示词。帐户名称已根据您的 Synx 帐户自动填入。"
+import_ai_copy_prompt = "复制提示词"
+import_confirm_title = "确认汇入"
+import_confirm_found = "找到 {count} 笔交易"
+import_confirm_ready = "{count} 笔可汇入"
+import_confirm_issues = "{count} 个问题："
+import_button = "汇入 {count} 笔"
+import_success = "成功汇入 {count} 笔交易"
+import_partial = "已汇入 {inserted} 笔，{failed} 笔失败"
+import_btn_format_guide = "格式说明"
+import_btn_ai_prompt = "AI 提示词"
+import_btn_file = "汇入档案"
+import_btn_example = "查看范例"
+import_desc_non_investment = "贴上或载入 CSV — 每行一笔交易。必要栏位：Account、Date、Name、Amount。\n请先在 Synx 手动建立帐号。交易日期不可早于帐号的开始日期。"
+import_desc_investment = "贴上或载入 CSV — 每行一笔交易。必要栏位：Account、Date、Shares、Price、Amount。\n请先在 Synx 手动建立帐号。交易日期不可早于帐号的开始日期。"
+
+# ============================================================================
+# Categories
+# ============================================================================
+[biometric]
+reason = "验证以存取 Synx"
+enable_reason = "启用生物辨识验证"
+authentication_failed = "验证失败"
+label = "生物辨识解锁"
+
+[categories]
+salary = "薪资"
+bonus = "奖金"
+dividend = "股息"
+income = "收入"
+gift = "礼物"
+interest = "利息"
+commission = "佣金"
+refund = "退款"
+cashback = "现金回馈"
+expense = "支出"
+groceries = "杂货"
+transportation = "交通"
+dining_out = "外食"
+entertainment = "娱乐"
+healthcare = "医疗"
+insurance = "保险"
+utilities = "水电瓦斯"
+rent = "房租"
+education = "教育"
+travel = "旅游"
+tax_payment = "税款"
+credit_card_fee = "信用卡费"
+bad_debt = "呆帐"
+charity = "慈善"
+shopping = "购物"
+clothing = "服饰"
+beauty = "美容"
+fitness = "健身"
+subscription = "订阅"
+phone_bill = "电话费"
+pet = "宠物"
+home_maintenance = "居家维护"
+electronics = "电子产品"
+furniture = "家具"
+transfer = "转帐"
+withdraw_atm = "ATM 提领"
+ewallet_topup = "电子钱包储值"
+investment_buy = "投资买入"
+investment_sell = "投资卖出"
+loan_received = "贷款入帐"
+loan_payment = "贷款还款"
+savings = "储蓄"
+
+# ============================================================================
+# Category Picker
+# ============================================================================
+[category_picker]
+title = "选择分类"
+new_category_placeholder = "新分类名称"
+no_categories = "尚无分类"
+delete_title = "删除分类"
+delete_message = "确定要删除「{name}」吗？"
+error_title = "错误"
+delete_failed = "无法删除分类：{error}"
+# ============================================================================
+# Onboarding
+# ============================================================================
+[onboarding]
+page1_title = "一眼掌握你的财富全貌"
+page1_subtitle = "资产、负债、净值，清楚呈现你的财务现况与成长趋势。"
+page2_title = "与市场同步"
+page2_subtitle = "支援多国股市、基金、加密货币与贵金属，持仓价值随市场即时同步。"
+page3_title = "自动金流管理"
+page3_subtitle = "固定金流自动纪录，弹性金流如卡费或定期投资一键确认完成记帐。"
+page4_title = "成本损益 一目了然"
+page4_subtitle = "未实现损益、已实现获利、持仓市值，让你清楚知道每个投资的表现。"
+page5_title = "隐私优先"
+page5_subtitle = "Synx 不需要连结任何金融帐号，资料储存在本机，透过云端安全备份。"
+get_started = "开始使用"
+
+# ============================================================================
+# What's New
+# ============================================================================
+[whats_new]
+dialog_title = "有什么新功能？"
+
+[whats_new.v2_24_0]
+title = "图示与圆饼图可切换"
+description = "点击帐户列表左侧的图示，即可在自订图示与圆饼图之间切换，圆饼图会显示该帐户在群组中的资产占比。"
+
+[whats_new.v2_26_0]
+title = "分享你的财务快照"
+description = "点击总览页的分享按钮，生成一张包含净资产、资产配置与趋势的精美卡片，随时分享。"
+
+# ============================================================================
+# Upgrade Recommendation Dialog
+# ============================================================================
+[upgrade_dialog]
+title = "有新版本可用"
+message = "建议您更新至最新版本以获得最佳体验。"
+later = "稍后"
+go_update = "前往更新"
+
+# ============================================================================
+# Share Snapshot
+# ============================================================================
+[share]
+preview_title = "分享快照"
+theme = "主题"
+dark_theme = "深色"
+light_theme = "浅色"
+time_range = "时间范围"
+portfolio = "投资组合"
+amount_display = "金额显示"
+show_amounts = "显示金额"
+hide_amounts = "隐藏（显示比例）"
+share_button = "分享"
+select_portfolio = "选择投资组合"
+loading_failed = "载入失败"
+shared = "分享成功"
+generated_by = "Generated by"
+others = "其他"
+date_format_year_month = "yyyy年M月d日"
+
+[share.change_label]
+seven_days = "7天变化"
+one_month = "本月变化"
+six_months = "半年变化"
+ytd = "今年变化"
+one_year = "年度变化"
+all = "总变化"
