@@ -32,6 +32,25 @@ jobs:
       - name: Generate Gradle Wrapper
         run: gradle wrapper --gradle-version 8.5
 
+      - name: Generate signing keystore
+        run: |
+          keytool -genkey -v \
+            -keystore app/debug.keystore \
+            -alias debug \
+            -keyalg RSA \
+            -keysize 2048 \
+            -validity 10000 \
+            -storepass android \
+            -keypass android \
+            -dname "CN=Debug,OU=SynxVipUnlocker,O=Synx,L=Unknown,ST=Unknown,C=US"
+          # 创建 signing.properties
+          cat > app/signing.properties << 'EOF'
+          storeFile=debug.keystore
+          storePassword=android
+          keyAlias=debug
+          keyPassword=android
+          EOF
+
       - name: Build Release APK
         run: ./gradlew assembleRelease --no-daemon
 
