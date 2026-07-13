@@ -37,7 +37,7 @@ android {
 
 dependencies {
     // Xposed API — compileOnly，只参与编译不打包进 APK
-    compileOnly(files("libs/api-82.jar"))
+    compileOnly("de.robv.android.xposed:api:82")
 
     // Kotlin 标准库 — 需要打包进 APK
     implementation("org.jetbrains.kotlin:kotlin-stdlib:1.9.20")

@@ -32,13 +32,6 @@ jobs:
       - name: Generate Gradle Wrapper
         run: gradle wrapper --gradle-version 8.5
 
-      - name: Download Xposed API JAR
-        run: |
-          mkdir -p app/libs
-          curl -fsSL -o app/libs/api-82.jar \
-            "https://github.com/rovo89/XposedBridge/releases/download/v82/api-82.jar"
-          ls -lh app/libs/api-82.jar
-
       - name: Build Release APK
         run: ./gradlew assembleRelease --no-daemon
 
