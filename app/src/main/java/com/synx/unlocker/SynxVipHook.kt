@@ -34,13 +34,14 @@ class SynxVipHook : IXposedHookLoadPackage {
         hookAppContext(cl)
 
         // 核心: 直接替换 PurchasesFlutterPlugin 的独立方法
-        // 这些方法经 androguard 确认存在:
-        //   getCustomerInfo(Result)
-        //   getOfferings(Result)
-        //   checkTrialOrIntroductoryPriceEligibility(ArrayList, Result)
-        hookGetCustomerInfo(cl)
-        hookGetOfferings(cl)
-        hookCheckTrial(cl)
+        // 这些方法经 androguard 确认存在
+        hookSetupPurchases(cl)      // 让 RevenueCat 初始化"成功"
+        hookIsConfigured(cl)         // 返回 true
+        hookGetCustomerInfo(cl)     // 返回伪造 pro 数据
+        hookGetOfferings(cl)        // 返回空 offerings
+        hookCheckTrial(cl)          // 返回符合试用条件
+        hookGetAppUserID(cl)        // 返回有效用户 ID
+        hookIsAnonymous(cl)         // 返回 false
 
         // 备用: RevenueCat 对象层
         hookRevenueCatObjects(cl)
@@ -120,6 +121,101 @@ class SynxVipHook : IXposedHookLoadPackage {
             XposedBridge.log("[$TAG] [✓] Plugin.checkTrial()")
         } catch (t: Throwable) {
             XposedBridge.log("[$TAG] [✗] checkTrial: $t")
+        }
+    }
+
+    // ===============================================================
+    //  setupPurchases → 让初始化成功
+    //  签名: setupPurchases(String, String, String, Boolean, Boolean,
+    //                       String, Boolean, Boolean, Boolean, String, Result)
+    // ===============================================================
+    private fun hookSetupPurchases(cl: ClassLoader) {
+        try {
+            val resultCls = cl.loadClass("io.flutter.plugin.common.MethodChannel\$Result")
+            val boolObj = java.lang.Boolean::class.java
+            XposedHelpers.findAndHookMethod(
+                CLS_PLUGIN, cl, "setupPurchases",
+                String::class.java, String::class.java, String::class.java,
+                boolObj, boolObj, String::class.java,
+                boolObj, boolObj, boolObj, String::class.java,
+                resultCls,
+                object : XC_MethodReplacement() {
+                    override fun replaceHookedMethod(param: MethodHookParam): Any? {
+                        val result = param.args[10]
+                        XposedHelpers.callMethod(result, "success", null)
+                        XposedBridge.log("[$TAG] ✓ setupPurchases → success (faked)")
+                        return null
+                    }
+                })
+            XposedBridge.log("[$TAG] [✓] Plugin.setupPurchases()")
+        } catch (t: Throwable) {
+            XposedBridge.log("[$TAG] [✗] setupPurchases: $t")
+        }
+    }
+
+    // ===============================================================
+    //  isConfigured → 返回 true
+    // ===============================================================
+    private fun hookIsConfigured(cl: ClassLoader) {
+        try {
+            val resultCls = cl.loadClass("io.flutter.plugin.common.MethodChannel\$Result")
+            XposedHelpers.findAndHookMethod(
+                CLS_PLUGIN, cl, "isConfigured", resultCls,
+                object : XC_MethodReplacement() {
+                    override fun replaceHookedMethod(param: MethodHookParam): Any? {
+                        val result = param.args[0]
+                        XposedHelpers.callMethod(result, "success", true)
+                        XposedBridge.log("[$TAG] ✓ isConfigured → true")
+                        return null
+                    }
+                })
+            XposedBridge.log("[$TAG] [✓] Plugin.isConfigured()")
+        } catch (t: Throwable) {
+            XposedBridge.log("[$TAG] [✗] isConfigured: $t")
+        }
+    }
+
+    // ===============================================================
+    //  getAppUserID → 返回有效用户 ID
+    // ===============================================================
+    private fun hookGetAppUserID(cl: ClassLoader) {
+        try {
+            val resultCls = cl.loadClass("io.flutter.plugin.common.MethodChannel\$Result")
+            XposedHelpers.findAndHookMethod(
+                CLS_PLUGIN, cl, "getAppUserID", resultCls,
+                object : XC_MethodReplacement() {
+                    override fun replaceHookedMethod(param: MethodHookParam): Any? {
+                        val result = param.args[0]
+                        XposedHelpers.callMethod(result, "success", "synx_pro_user")
+                        XposedBridge.log("[$TAG] ✓ getAppUserID → synx_pro_user")
+                        return null
+                    }
+                })
+            XposedBridge.log("[$TAG] [✓] Plugin.getAppUserID()")
+        } catch (t: Throwable) {
+            XposedBridge.log("[$TAG] [✗] getAppUserID: $t")
+        }
+    }
+
+    // ===============================================================
+    //  isAnonymous → 返回 false
+    // ===============================================================
+    private fun hookIsAnonymous(cl: ClassLoader) {
+        try {
+            val resultCls = cl.loadClass("io.flutter.plugin.common.MethodChannel\$Result")
+            XposedHelpers.findAndHookMethod(
+                CLS_PLUGIN, cl, "isAnonymous", resultCls,
+                object : XC_MethodReplacement() {
+                    override fun replaceHookedMethod(param: MethodHookParam): Any? {
+                        val result = param.args[0]
+                        XposedHelpers.callMethod(result, "success", false)
+                        XposedBridge.log("[$TAG] ✓ isAnonymous → false")
+                        return null
+                    }
+                })
+            XposedBridge.log("[$TAG] [✓] Plugin.isAnonymous()")
+        } catch (t: Throwable) {
+            XposedBridge.log("[$TAG] [✗] isAnonymous: $t")
         }
     }
 
