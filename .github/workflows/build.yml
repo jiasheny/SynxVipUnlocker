@@ -28,34 +28,15 @@ jobs:
         uses: gradle/actions/setup-gradle@v3
         with:
           gradle-version: "8.5"
-          generate-job-summary: false
           cache-disabled: true
+          generate-job-summary: false
 
-      - name: Generate signing keystore
-        run: |
-          keytool -genkey -v \
-            -keystore app/debug.keystore \
-            -alias debug \
-            -keyalg RSA \
-            -keysize 2048 \
-            -validity 10000 \
-            -storepass android \
-            -keypass android \
-            -dname "CN=Debug,OU=SynxVipUnlocker,O=Synx,L=Unknown,ST=Unknown,C=US"
-          # 创建 signing.properties
-          cat > app/signing.properties << 'EOF'
-          storeFile=debug.keystore
-          storePassword=android
-          keyAlias=debug
-          keyPassword=android
-          EOF
+      - name: Build Debug APK (auto-signed with debug keystore)
+        run: gradle assembleDebug --no-daemon
 
-      - name: Build Release APK
-        run: gradle assembleRelease --no-daemon
-
-      - name: Upload APK Artifact
+      - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: SynxVipUnlocker-APK
-          path: app/build/outputs/apk/release/*.apk
+          path: app/build/outputs/apk/debug/*.apk
           retention-days: 90
