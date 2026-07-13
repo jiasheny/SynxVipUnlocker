@@ -118,15 +118,15 @@ class SynxVipHook : IXposedHookLoadPackage {
      * 构造伪造的 CustomerInfo Map
      * 这是 RevenueCat Flutter 插件返回给 Dart 的数据结构
      */
-    private fun buildFakeCustomerInfoMap(): Map<String, Any> {
-        val m = LinkedHashMap<String, Any>()
+    private fun buildFakeCustomerInfoMap(): Map<String, Any?> {
+        val m = LinkedHashMap<String, Any?>()
 
         // entitlements
-        val ent = LinkedHashMap<String, Any>()
-        val active = LinkedHashMap<String, Any>()
-        val all = LinkedHashMap<String, Any>()
+        val ent = LinkedHashMap<String, Any?>()
+        val active = LinkedHashMap<String, Any?>()
+        val all = LinkedHashMap<String, Any?>()
 
-        val pro = LinkedHashMap<String, Any>()
+        val pro = LinkedHashMap<String, Any?>()
         pro["identifier"] = "pro"
         pro["isActive"] = true
         pro["willRenew"] = true
