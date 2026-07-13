@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Synx VIP Unlocker</string>
+    <string name="module_description">破解 Synx App 的 VIP/Pro 功能。\n原理：Hook RevenueCat 的 EntitlementInfo.isActive() 等方法，强制返回已激活状态。\n适用版本：Synx 2.27.0</string>
+</resources>

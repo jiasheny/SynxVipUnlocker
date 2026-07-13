@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- LSPosed 作用域：只作用于 Synx 应用 -->
+    <string-array name="xposed_scope">
+        <item>com.synxapp.synx</item>
+    </string-array>
+</resources>
